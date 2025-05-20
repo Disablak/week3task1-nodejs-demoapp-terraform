@@ -87,10 +87,6 @@ resource "aws_security_group" "sg_alb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = {
-    Name = "alb-sg"
-  }
 }
 
 resource "aws_lb" "app" {
@@ -104,10 +100,6 @@ resource "aws_lb" "app" {
   ]
 
   enable_deletion_protection = false
-
-  tags = {
-    Name = "demoapp-alb"
-  }
 }
 
 resource "aws_lb_target_group" "app_tg" {
@@ -124,10 +116,6 @@ resource "aws_lb_target_group" "app_tg" {
     unhealthy_threshold = 2
     matcher             = "200"
   }
-
-  tags = {
-    Name = "demoapp-tg"
-  }
 }
 
 resource "aws_autoscaling_group" "asg" {
@@ -140,12 +128,6 @@ resource "aws_autoscaling_group" "asg" {
   launch_template {
     id      = aws_launch_template.demoapp.id
     version = "$Latest"
-  }
-
-  tag {
-    key                 = "Name"
-    value               = "nodejs-demoapp"
-    propagate_at_launch = true
   }
 }
 
