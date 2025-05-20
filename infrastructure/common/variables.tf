@@ -9,7 +9,6 @@ variable "instance_type" {
 }
 
 variable "path_to_user_data" {
-  description = "Value of the Name tag for the EC2 instance"
   type = string
   default = "/../../week3_task1/user_data.sh"
 }
