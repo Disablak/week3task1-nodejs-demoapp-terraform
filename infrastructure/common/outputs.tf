@@ -1,3 +1,3 @@
 output "DNS_name" {
-  value = aws_lb.app.dns_name
+  value = aws_lb.main.dns_name
 }

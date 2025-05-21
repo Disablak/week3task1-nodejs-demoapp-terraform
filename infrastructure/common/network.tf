@@ -3,21 +3,21 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public_a" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = true
-  availability_zone = "us-east-1a"
+  availability_zone       = "us-east-1a"
 }
 
 resource "aws_subnet" "public_b" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.2.0/24"
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.2.0/24"
   map_public_ip_on_launch = true
-  availability_zone = "us-east-1b"
+  availability_zone       = "us-east-1b"
 }
 
 resource "aws_internet_gateway" "igw" {
-    vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.main.id
 }
 
 resource "aws_route_table" "public" {
@@ -39,7 +39,7 @@ resource "aws_route_table_association" "public_b" {
   route_table_id = aws_route_table.public.id
 }
 
-resource "aws_security_group" "sg_alb" {
+resource "aws_security_group" "allow_http" {
   name        = "alb-sg"
   description = "Allow HTTP"
   vpc_id      = aws_vpc.main.id
@@ -60,12 +60,12 @@ resource "aws_security_group" "sg_alb" {
   }
 }
 
-resource "aws_lb" "app" {
+resource "aws_lb" "main" {
   name               = "demoapp-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.sg_alb.id]
-  subnets            = [
+  security_groups    = [aws_security_group.allow_http.id]
+  subnets = [
     aws_subnet.public_a.id,
     aws_subnet.public_b.id
   ]
@@ -73,7 +73,7 @@ resource "aws_lb" "app" {
   enable_deletion_protection = false
 }
 
-resource "aws_lb_target_group" "app_tg" {
+resource "aws_lb_target_group" "main" {
   name     = "demoapp-tg"
   port     = 80
   protocol = "HTTP"
@@ -89,12 +89,12 @@ resource "aws_lb_target_group" "app_tg" {
   }
 }
 
-resource "aws_autoscaling_group" "asg" {
-  desired_capacity     = 2
-  min_size             = 2
-  max_size             = 4
-  vpc_zone_identifier  = [aws_subnet.public_a.id, aws_subnet.public_b.id]
-  target_group_arns = [aws_lb_target_group.app_tg.arn]
+resource "aws_autoscaling_group" "main" {
+  desired_capacity    = 2
+  min_size            = 2
+  max_size            = 4
+  vpc_zone_identifier = [aws_subnet.public_a.id, aws_subnet.public_b.id]
+  target_group_arns   = [aws_lb_target_group.main.arn]
 
   launch_template {
     id      = aws_launch_template.demoapp.id
@@ -103,12 +103,12 @@ resource "aws_autoscaling_group" "asg" {
 }
 
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.app.arn
+  load_balancer_arn = aws_lb.main.arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.app_tg.arn
+    target_group_arn = aws_lb_target_group.main.arn
   }
 }

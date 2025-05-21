@@ -9,7 +9,7 @@ resource "aws_sns_topic_subscription" "email_sub" {
 }
 
 resource "aws_autoscaling_notification" "asg_notify" {
-  group_names = [aws_autoscaling_group.asg.name]
+  group_names = [aws_autoscaling_group.main.name]
 
   notifications = [
     "autoscaling:EC2_INSTANCE_LAUNCH",

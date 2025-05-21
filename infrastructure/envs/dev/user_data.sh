@@ -1,1 +1,1 @@
-../../week3_task1/user_data/user_data.sh
+../../../week3_task1/user_data/user_data.sh

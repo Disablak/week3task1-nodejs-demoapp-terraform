@@ -2,17 +2,17 @@ resource "aws_launch_template" "demoapp" {
   name_prefix   = "demoapp-"
   image_id      = var.ami_amazon_linux_id
   instance_type = var.instance_type
-  user_data = base64encode(file("user_data.sh"))
+  user_data     = base64encode(file("user_data.sh"))
 
   network_interfaces {
     associate_public_ip_address = true
-    security_groups             = [aws_security_group.web.id]
+    security_groups             = [aws_security_group.allow_http_and_ssh.id]
   }
 }
 
-resource "aws_security_group" "web" {
-  name = "demoapp-sg"
-  vpc_id = aws_vpc.main.id
+resource "aws_security_group" "allow_http_and_ssh" {
+  name        = "demoapp-sg"
+  vpc_id      = aws_vpc.main.id
   description = "Allow HTTP and SSH"
 
   ingress {
