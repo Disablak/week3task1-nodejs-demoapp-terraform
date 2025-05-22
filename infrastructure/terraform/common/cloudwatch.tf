@@ -6,8 +6,8 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_alarm" {
   namespace           = "AWS/EC2"
   period              = 60
   statistic           = "Average"
-  threshold           = 70
-  alarm_description   = "This alarm triggers when CPU > 70%"
+  threshold           = var.alarm_treshold
+  alarm_description   = "This alarm triggers when CPU > ${tostring(var.alarm_treshold)}%"
   actions_enabled     = true
 
   alarm_actions = [aws_sns_topic.scale_notifications.arn]

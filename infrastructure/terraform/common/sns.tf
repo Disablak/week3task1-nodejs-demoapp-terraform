@@ -5,7 +5,7 @@ resource "aws_sns_topic" "scale_notifications" {
 resource "aws_sns_topic_subscription" "email_sub" {
   topic_arn = aws_sns_topic.scale_notifications.arn
   protocol  = "email"
-  endpoint  = "verchinskiymax@gmail.com"
+  endpoint  = var.sns_email
 }
 
 resource "aws_autoscaling_notification" "asg_notify" {

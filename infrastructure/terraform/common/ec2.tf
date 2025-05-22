@@ -1,12 +1,16 @@
 resource "aws_launch_template" "demoapp" {
   name_prefix   = "demoapp-"
-  image_id      = var.ami_amazon_linux_id
+  image_id      = "ami-0953476d60561c955"
   instance_type = var.instance_type
   user_data     = base64encode(file("user_data.sh"))
 
   network_interfaces {
     associate_public_ip_address = true
     security_groups             = [aws_security_group.allow_http_and_ssh.id]
+  }
+
+  tags = {
+    Name = "${var.enviroment}-demoapp"
   }
 }
 
