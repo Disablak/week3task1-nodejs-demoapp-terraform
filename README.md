@@ -11,3 +11,6 @@ The infrastructure should include:
    - Load balancer and target group
 
 Bonus Task: For those who complete the task quickly, use Terraform to set up email notifications for scaling events using CloudWatch and SNS.
+
+Resutl:
+https://github.com/Disablak/week3task1-nodejs-demoapp-terraform/releases/tag/release_task_1
