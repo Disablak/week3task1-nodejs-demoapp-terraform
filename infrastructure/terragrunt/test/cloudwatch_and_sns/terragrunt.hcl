@@ -10,17 +10,10 @@ include "env" {
   path = find_in_parent_folders("env.hcl")
 }
 
-dependency "autoscale" {
-  config_path = "../autoscale"
-
-  mock_outputs = {
-    autoscale_group_name = "mock-autoscale-group"
-  }
+include "module" {
+  path = "../../common/cloudwatch_and_sns/terragrunt.hcl"
 }
 
 inputs = {
-  autoscale_group_name = dependency.autoscale.outputs.autoscale_group_name
-
-  sns_email = "verchinskiymax@gmail.com"
   alarm_treshold = 10
 }
