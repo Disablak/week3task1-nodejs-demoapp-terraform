@@ -18,5 +18,5 @@ inputs = {
   autoscale_group_name = dependency.autoscale.outputs.autoscale_group_name
 
   sns_email = "verchinskiymax@gmail.com"
-  alarm_treshold = 30
+  alarm_treshold = 70
 }

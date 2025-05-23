@@ -1,5 +1,6 @@
 remote_state {
   backend = "s3"
+
   config = {
     bucket         = "w3t2-terraform-states"
     key            = "${path_relative_to_include()}/terraform.tfstate"
