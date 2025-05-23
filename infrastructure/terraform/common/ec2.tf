@@ -1,11 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "us-east-1"
-} // generate this shit
-
 resource "aws_launch_template" "demoapp" {
   name_prefix   = "demoapp-"
   image_id      = "ami-0953476d60561c955"
@@ -49,25 +41,6 @@ resource "aws_security_group" "allow_http_and_ssh" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-
-variable "instance_type" {
-  type    = string
-  default = "t2.micro"
-}
-
-
-variable "vpc_id" {
-  type = string
-}
-
-variable "enviroment" {
-  type = string
-}
-
-variable "user_data" {
-  type = string
 }
 
 output "launch_template_id" {

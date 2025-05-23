@@ -1,11 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "us-east-1"
-} // generate this shit
-
 resource "aws_cloudwatch_metric_alarm" "high_cpu_alarm" {
   alarm_name          = "high-cpu-alarm"
   comparison_operator = "GreaterThanThreshold"
@@ -46,17 +38,4 @@ resource "aws_autoscaling_notification" "asg_notify" {
   ]
 
   topic_arn = aws_sns_topic.scale_notifications.arn
-}
-
-variable "sns_email" {
-  type = string
-}
-
-variable "alarm_treshold" {
-  type = number
-  default = 70
-}
-
-variable "autoscale_group_name" {
-  type = string
 }

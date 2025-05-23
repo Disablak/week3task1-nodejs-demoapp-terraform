@@ -1,11 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
-provider "aws" {
-  region = "us-east-1"
-} // generate this shit
-
 resource "aws_security_group" "allow_http" {
   name        = "alb-sg"
   description = "Allow HTTP"
@@ -65,18 +57,6 @@ resource "aws_lb_listener" "http" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.main.arn
   }
-}
-
-variable "vpc_id" {
-  type = string
-}
-
-variable "subnet_a_id" {
-  type = string
-}
-
-variable "subnet_b_id" {
-  type = string
 }
 
 output "lb_target_group_arn" {
