@@ -12,6 +12,10 @@ include "env" {
 
 dependency "autoscale" {
   config_path = "../autoscale"
+
+  mock_outputs = {
+    autoscale_group_name = "mock-autoscale-group"
+  }
 }
 
 inputs = {
