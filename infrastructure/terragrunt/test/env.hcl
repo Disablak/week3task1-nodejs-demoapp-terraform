@@ -1,0 +1,3 @@
+inputs = {
+  enviroment = "test"
+}
