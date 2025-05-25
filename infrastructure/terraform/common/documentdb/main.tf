@@ -14,6 +14,7 @@ resource "aws_docdb_cluster" "this" {
   preferred_backup_window = "07:00-09:00"
   db_subnet_group_name    = aws_docdb_subnet_group.this.name
   vpc_security_group_ids  = [aws_security_group.allow_communicate_with_ec2.id]
+  skip_final_snapshot     = true
 
   tags = var.tags
 }
