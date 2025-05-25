@@ -11,6 +11,10 @@ variable "user_data" {
   type = string
 }
 
+variable "policy" {
+  type = string
+}
+
 variable "vpc_id" {
   type = string
 }

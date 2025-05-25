@@ -19,4 +19,5 @@ inputs = {
 
   // can't share this line because of error
   user_data = base64encode(file("${get_parent_terragrunt_dir("root")}/../../week3_task1/user_data/user_data.sh"))
+  policy = file("${get_parent_terragrunt_dir("root")}/../../week3_task1/policies/AmazonDocDBReadOnlyAccess.json")
 }
