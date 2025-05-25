@@ -32,3 +32,23 @@ https://github.com/Disablak/week3task1-nodejs-demoapp-terraform/releases/tag/rel
 - I tried to maximum share common logic: infrastracture/terragrunt/common/
 - Created simple module "my_dynamodb": infrastructure/tarraform/module/my_dynamodb/ and it used in terragrunt/dev
 - However I made every part of terraform like a module. I don't know how to keep terraform code available in terraform and terragrunt.
+
+# Task 3: Infrastructure Security
+
+## Scenario:
+In this task, you will be implementing security measures to safeguard your infrastructure. Every company is concerned about possible vulnerabilities and wants to make sure that the infrastructure is well protected, so security is important. Your responsibilities involve:
+
+## Objectives:
+1. Add DocumentDB service for node-js application
+2. Use AWS Security Groups to implement virtual firewalls for your EC2 instances to control inbound and outbound traffic.
+3. Implement Identity and Access Management (IAM) policies to manage AWS service permissions and safeguard access to resources, add policy for EC2 node-js to communicate with DocumentDB.
+4*. Use AWS Inspector to automate security assessment and find vulnerabilities or deviations from best practices in your applications deployed on AWS.
+
+## Result:
+https://github.com/Disablak/week3task1-nodejs-demoapp-terraform/releases/tag/release_task_3
+
+- Added new module with DocumentDB: infrastracture/terraform/common/documentdb
+- In DocumentDB's SG added in inbound rule EC2's SG for communication
+- To EC2's template added IAM Role to allow communication with DocumentDB
+- In Amazon Console enabled AWS Inspector
+- Added module for enebling AWS Inspector for EC2: infrastracture/terraform/common/amazon_inspector
