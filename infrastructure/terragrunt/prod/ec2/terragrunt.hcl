@@ -10,8 +10,8 @@ include "env" {
   path = find_in_parent_folders("env.hcl")
 }
 
-include "module" {
-  path = "../../common/ec2/terragrunt.hcl"
+include "common" {
+  path = "${get_terragrunt_dir()}/../../common/ec2/terragrunt.hcl"
 }
 
 inputs = {

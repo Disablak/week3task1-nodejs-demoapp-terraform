@@ -6,6 +6,6 @@ include "root" {
   path = find_in_parent_folders("root.hcl")
 }
 
-include "module" {
-  path = "../../common/autoscale/terragrunt.hcl"
+include "common" {
+  path = "${get_terragrunt_dir()}/../../common/autoscale/terragrunt.hcl"
 }

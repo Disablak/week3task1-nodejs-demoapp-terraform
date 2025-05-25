@@ -10,8 +10,8 @@ include "env" {
   path = find_in_parent_folders("env.hcl")
 }
 
-include "module" {
-  path = "../../common/cloudwatch_and_sns/terragrunt.hcl"
+include "common" {
+  path = "${get_terragrunt_dir()}/../../common/cloudwatch_and_sns/terragrunt.hcl"
 }
 
 inputs = {
